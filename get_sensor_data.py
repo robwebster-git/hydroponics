@@ -50,7 +50,7 @@ def main():
     
     while True:
 
-        delaytime = 5
+        delaytime = 2
         
         try:
             while True:
@@ -62,6 +62,7 @@ def main():
             
         except KeyboardInterrupt:
             print("Continuous polling stopped")
+            sys.exit()
     
                     
 if __name__ == '__main__':
