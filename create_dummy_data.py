@@ -14,6 +14,6 @@ with open(f'{REPO_DIR}/ph.csv', 'a+') as f:
 # Add, commit, push
 repo = Repo(REPO_DIR)
 repo.git.add(REPO_DIR)
-repo.index.commit('Updated pH sensor data: {datetime.now().strftime("%d-%m-%Y-%H-%M-%S")')
+repo.index.commit(f'Updated pH sensor data: {datetime.now().strftime("%d-%m-%Y-%H-%M-%S")}')
 repo.remotes.origin.push('main')
 
