@@ -6,6 +6,9 @@ import fcntl
 import time
 import copy
 import string
+
+sys.path.append('/home/pi/Raspberry-Pi-sample-code')
+
 from AtlasI2C import (
 	 AtlasI2C
 )
