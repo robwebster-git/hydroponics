@@ -59,7 +59,7 @@ def main():
                 continue
             name = address_to_name[dev.address]
             result = dev.read().strip().split(":")[-1].strip()
-            with open(f'data_{name}_address_{dev.address}.csv', 'a+') as dd:
+            with open(f'/home/pi/hydroponics/data_{name}_address_{dev.address}.csv', 'a+') as dd:
                 dd.write(f'{datetime.now().strftime("%d-%m-%Y,%H:%M:%S")},{result}\n')                
                 print(dev.address, name, result)
         
