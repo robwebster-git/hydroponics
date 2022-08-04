@@ -47,21 +47,21 @@ def main():
     print(device_list)
       
     device = device_list[0]
+    delaytime = 2
     
-    while True:
-
-        delaytime = 5
+    try:
+        for dev in device_list:
+            dev.write("R")
+        time.sleep(delaytime)
+        for dev in device_list:
+            result = dev.read()
+            with open(f'dummy_data_{dev}.csv', 'a+') as dd:
+                dd.write(f'{result}\n')
+            print(result)
         
-        try:
-            while True:
-                for dev in device_list:
-                    dev.write("R")
-                time.sleep(delaytime)
-                for dev in device_list:
-                    print(dev.read())
-            
-        except KeyboardInterrupt:
-            print("Continuous polling stopped")
+    except KeyboardInterrupt:
+        print("Continuous polling stopped")
+        sys.exit()
     
                     
 if __name__ == '__main__':
