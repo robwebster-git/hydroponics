@@ -10,9 +10,7 @@ from datetime import datetime
 
 sys.path.append('/home/pi/Raspberry-Pi-sample-code')
 
-from AtlasI2C import (
-	 AtlasI2C
-)
+from AtlasI2C import AtlasI2C
 
 address_to_name={
     99: 'pH',
@@ -28,7 +26,6 @@ def get_devices():
     device = AtlasI2C()
     device_address_list = device.list_i2c_devices()
     device_list = []
-        
     for i in device_address_list:
         if i != 100: # restrict operation to only EC for now
             continue
@@ -49,24 +46,14 @@ def main():
     device_list = get_devices()
     delaytime = 2
     
-    try:
-        for dev in device_list:
+    for dev in device_list:
+        if dev.address == 100: # restrict to only EC sensor for now
             dev.write("R")
-        time.sleep(delaytime)
-        for dev in device_list:
-            if dev.address != 100: # restrict operation to EC sensor for now
-                print(f'Not 100: {dev.address}')
-                continue
+            time.sleep(delaytime)
             name = address_to_name[dev.address]
             result = dev.read().strip().split(":")[-1].strip()
-            with open(f'/home/pi/hydroponics/data_{name}_address_{dev.address}.csv', 'a+') as dd:
+            with open(f'/home/pi/hydroponics/EC_data/data_{name}_address_{dev.address}.csv', 'a+') as dd:
                 dd.write(f'{datetime.now().strftime("%d-%m-%Y,%H:%M:%S")},{result}\n')                
                 print(dev.address, name, result)
-        
-    except KeyboardInterrupt:
-        print("Continuous polling stopped")
-        sys.exit()
-    
-                    
 if __name__ == '__main__':
     main()
