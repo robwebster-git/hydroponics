@@ -1,15 +1,16 @@
-#!/usr/bin/python
-
 import io
 import sys
 import fcntl
 import time
 import copy
 import string
-import output_file
+import json
+
 sys.path.append('/home/pi/Raspberry-Pi-sample-code')
 
 from AtlasI2C import AtlasI2C
+
+import output_file
 
 address_to_name={
     99: 'pH',
@@ -50,7 +51,9 @@ def main():
             dev.write("R")
             time.sleep(delaytime)
             name = address_to_name[dev.address]
-            result = dev.read().strip().split(":")[-1].strip()
+            result = dev.read().strip().split(":")[-1]
+            result = json.dumps(result).replace(r'\u0000', '').replace('"', '').strip()
+            result = int(result)
             output_json = f'{output_file.OUTPUT_REPO_DIR}/{name}/data_{name}_{output_file.monthstamp}.json'
             df = output_file.add_datapoint_to_json(output_json, result)
             print(f'{name}: Added {result} to {output_json}')
