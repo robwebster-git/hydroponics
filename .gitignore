@@ -1,1 +1,2 @@
-create_dummy_data.py
+__pycache__
+*.pyc
