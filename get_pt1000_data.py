@@ -14,7 +14,7 @@ from AtlasI2C import AtlasI2C
 address_to_name={
     99: 'pH',
     100: 'EC',
-    101: 'RTD',
+    101: 'PT1000',
     102: 'PMP102',
     103: 'PMP103',
     104: 'PMP104',
@@ -26,7 +26,7 @@ def get_devices():
     device_address_list = device.list_i2c_devices()
     device_list = []
     for i in device_address_list:
-        if i != 100: # restrict operation to only EC for now
+        if i != 101: # restrict operation to Atlas Scientific PT1000 nutrient solution temperature sensor
             continue
         device.set_i2c_address(i)
         response = device.query("I")
@@ -46,7 +46,7 @@ def main():
     delaytime = 2
     
     for dev in device_list:
-        if dev.address == 100: # restrict to only EC sensor for now
+        if dev.address == 101: # Atlas Scientific PT1000 nutrient solution temperature sensor
             dev.write("R")
             time.sleep(delaytime)
             name = address_to_name[dev.address]
