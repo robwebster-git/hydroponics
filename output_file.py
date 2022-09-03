@@ -9,7 +9,7 @@ OUTPUT_REPO_DIR='/home/pi/hydroponics'
 
 # Get datetime stamp
 now = dt.now()
-datestamp = f'{now.year}{str(now.month).zfill(2)}{str(now.day).zfill(2)}_{str(now.hour).zfill(2)}{str(now.minute).zfill(2)}'
+datestamp = f'{now.year}-{str(now.month).zfill(2)}-{str(now.day).zfill(2)}T{str(now.hour).zfill(2)}:{str(now.minute).zfill(2)}'
 monthstamp = f'{now.year}{str(now.month).zfill(2)}'
 
 # Build output
