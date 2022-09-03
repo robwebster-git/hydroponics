@@ -57,7 +57,7 @@ def main():
             output_json = f'{output_file.OUTPUT_REPO_DIR}/{name}/data_{name}_{output_file.monthstamp}.json'
             df = output_file.add_datapoint_to_json(output_json, result)
             print(f'{name}: Added {result} to {output_json}')
-            df.to_json(output_json)
+            df.to_json(output_json, orient='records')
 
 if __name__ == '__main__':
     main()
